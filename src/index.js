@@ -4,11 +4,12 @@ import dotenv from 'dotenv'
 dotenv.config()
 const port=process.env.PORT || 3000;
 
+import apiRouter from "./routes/index.js";
 const app=express()
 
 app.use(express.json())
 app.use(urlencoded({extended:true}))
-
+app.use('/api',apiRouter)
 
 app.get('/ping',(req,res)=>{
     res.json({message: 'Problem service is alive'})
