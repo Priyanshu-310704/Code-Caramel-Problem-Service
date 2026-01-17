@@ -1,5 +1,5 @@
 const addProblem=(req,res)=>{
-
+    return res.status(501).json({message:"Not Implemented"})
 }
 const getProblem=(req,res)=>{
 
@@ -14,7 +14,7 @@ const updateProblem=(req,res)=>{
 
 }
 const pingController=(req,res)=>{
-    res.json({message:"ping Problem Controller is up!"})
+    return res.json({message:"ping Problem Controller is up!"})
 }
 
 export default{
