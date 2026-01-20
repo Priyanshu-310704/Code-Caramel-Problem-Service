@@ -1,8 +1,19 @@
-const addProblem=(req,res)=>{
-    return res.status(501).json({message:"Not Implemented"})
-}
-const getProblem=(req,res)=>{
+import BadRequest from "../errors/badrequest.error.js"
+import NotImplemented from "../errors/notimplemented.error.js"
 
+const addProblem=(req,res)=>{
+    try{
+        throw new NotImplemented('addProblem')
+    }catch(error){
+        next(error)
+    }
+}
+const getProblem=(req,res,next)=>{
+    try{
+        throw new BadRequest('Problem Name',{missing:["id"]})
+    }catch(error){
+        next(error)
+    }
 }
 const getProblems=(req,res)=>{
 
