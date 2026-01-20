@@ -1,7 +1,7 @@
 import BadRequest from "../errors/badrequest.error.js"
 import NotImplemented from "../errors/notimplemented.error.js"
 
-const addProblem=(req,res)=>{
+const addProblem=(req,res,next)=>{
     try{
         throw new NotImplemented('addProblem')
     }catch(error){
