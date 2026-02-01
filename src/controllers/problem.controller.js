@@ -1,9 +1,21 @@
 import BadRequest from "../errors/badrequest.error.js"
 import NotImplemented from "../errors/notimplemented.error.js"
+import ProblemService from "../services/problem.service.js"
+import ProblemRepository from "../repositories/problem.repository.js"
+import { StatusCodes } from "http-status-codes"
 
-const addProblem=(req,res,next)=>{
+const problemService=new ProblemService(new ProblemRepository())
+const addProblem=async(req,res,next)=>{
     try{
-        throw new NotImplemented('addProblem')
+        console.log("incomig request body",req.body);
+        
+        const newProblem=await problemService.createProblem(req.body);
+        return res.status(StatusCodes.CREATED).json({
+            success: true,
+            message: 'Successfully created a new problem',
+            error: {},
+            data: newProblem
+        })
     }catch(error){
         next(error)
     }
