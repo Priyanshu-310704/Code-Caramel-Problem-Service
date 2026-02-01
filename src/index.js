@@ -1,12 +1,10 @@
 import express, { urlencoded } from "express";
-import dotenv from 'dotenv'
-
-dotenv.config()
-const port=process.env.PORT || 3000;
-
+import { port } from "./config/server.config.js";
 import apiRouter from "./routes/index.js";
 import { BaseError } from "./errors/base.error.js";
 import errorHandler from "./utils/errorHandler.js";
+import connectToDB from "./config/db.config.js";
+import mongoose from "mongoose";
 const app=express()
 
 app.use(express.json())
@@ -19,8 +17,9 @@ app.get('/ping',(req,res)=>{
 
 app.use(errorHandler)
 
-app.listen(port,()=>{
+app.listen(port,async()=>{
     console.log(`Server Started at ${port}`);
-    
+    await connectToDB()
+    await console.log("Successfully connected to DB")
     // throw new BaseError("Some error",404,{errorMessage:"Something"})
 })
