@@ -46,5 +46,18 @@ class ProblemRepository{
             throw error;
         }
     }
+    async updateProblem(id,problemData){
+        try{
+            const updatedProblem=await Problem.findByIdAndUpdate(id,problemData,{   
+                new: true,          // return updated doc
+                runValidators: true // validate schema
+            });
+            if(!updatedProblem)throw new notFound("problem",id);
+            console.log(updatedProblem);
+            return updatedProblem;
+        }catch(error){
+            throw error;
+        }
+    }
 }
 export default ProblemRepository

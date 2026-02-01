@@ -62,8 +62,18 @@ const deleteProblem=async(req,res,next)=>{
         next(error);
     }
 }
-const updateProblem=(req,res)=>{
-
+const updateProblem=async(req,res,next)=>{
+    try{
+        const updatedProblem=await problemService.updateProblem(req.params.id,req.body);
+        return res.status(StatusCodes.OK).json({
+            "success" : true,
+            "message" : "Problem updated Successfully",
+            "error" : {},
+            "data" : updatedProblem
+        })
+    }catch(error){
+        next(error);
+    }
 }
 const pingController=(req,res)=>{
     return res.json({message:"ping Problem Controller is up!"})
