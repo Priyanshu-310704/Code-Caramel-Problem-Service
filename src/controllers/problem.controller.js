@@ -27,8 +27,18 @@ const getProblem=(req,res,next)=>{
         next(error)
     }
 }
-const getProblems=(req,res)=>{
-
+const getProblems=async(req,res)=>{
+    try{
+        const response=await problemService.getAllProblems();
+        return res.status(StatusCodes.CREATED).json({
+            success: true,
+            message: 'Successfully fetched all Problems',
+            error: {},
+            data: response
+        })
+    }catch(error){
+        next(error)
+    }
 }
 const deleteProblem=(req,res)=>{
 
