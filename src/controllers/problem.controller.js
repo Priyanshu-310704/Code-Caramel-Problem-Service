@@ -3,6 +3,7 @@ import NotImplemented from "../errors/notimplemented.error.js"
 import ProblemService from "../services/problem.service.js"
 import ProblemRepository from "../repositories/problem.repository.js"
 import { StatusCodes } from "http-status-codes"
+import notFound from "../errors/notFound.error.js"
 
 const problemService=new ProblemService(new ProblemRepository())
 const addProblem=async(req,res,next)=>{
@@ -20,9 +21,17 @@ const addProblem=async(req,res,next)=>{
         next(error)
     }
 }
-const getProblem=(req,res,next)=>{
+const getProblem=async(req,res,next)=>{
     try{
-        throw new BadRequest('Problem Name',{missing:["id"]})
+        const problem=await problemService.getProblem(req.params.id);
+        
+        return res.status(StatusCodes.OK).json({
+            success: true,
+            message: 'successfully fetched a problem',
+            error: {},
+            data: problem
+        })
+
     }catch(error){
         next(error)
     }
@@ -30,7 +39,7 @@ const getProblem=(req,res,next)=>{
 const getProblems=async(req,res)=>{
     try{
         const response=await problemService.getAllProblems();
-        return res.status(StatusCodes.CREATED).json({
+        return res.status(StatusCodes.OK).json({
             success: true,
             message: 'Successfully fetched all Problems',
             error: {},

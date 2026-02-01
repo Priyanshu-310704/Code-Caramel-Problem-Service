@@ -11,7 +11,7 @@ function sanitizeMarkdownContent(markdownInput) {
 
     // Step 2: Remove unsafe tags/scripts
     const safeHtml = sanitizeHtml(rawHtml, {
-        allowedTags: sanitizeHtml.defaults.allowedTags
+        allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
     });
     console.log("sanitized Html: ",safeHtml);
 
