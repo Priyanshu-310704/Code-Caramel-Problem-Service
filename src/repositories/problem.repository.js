@@ -1,3 +1,4 @@
+import logger from "../config/logger.config.js";
 import notFound from "../errors/notFound.error.js";
 import Problem from "../models/problem.model.js";
 
@@ -43,6 +44,7 @@ class ProblemRepository{
             if(deleteProblem===null)throw new notFound("problem",id);
             return deleteProblem;
         }catch(error){
+            logger.error(`Problem with id: ${id} not found in db`);
             throw error;
         }
     }
